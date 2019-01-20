@@ -3,7 +3,7 @@ services:
   - docker
 mono: none
 dist: xenial
-dotnet: 2.2
+dotnet: 2.1.403
 install:
   - sudo apt -qq -y install zip
   - dotnet tool install --global Amazon.Lambda.Tools --version 3.0.1
