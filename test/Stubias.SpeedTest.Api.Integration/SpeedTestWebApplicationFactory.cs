@@ -15,7 +15,7 @@ namespace Stubias.SpeedTest.Api.Integration
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            var dynamoDbUrl = "http://localhost:8000";
+            var dynamoDbUrl = "http://127.0.0.1:8000";
             Environment.SetEnvironmentVariable("AWS__DynamoDbEndpoint", dynamoDbUrl);
             builder.ConfigureServices(services =>
             {

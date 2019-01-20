@@ -27,7 +27,7 @@ namespace Stubias.SpeedTest.Api.Integration.Data.Services
                 ExecutionDateTime = executionTime
             };
 
-            var config = new AmazonDynamoDBConfig { ServiceURL = "http://localhost:8000" };
+            var config = new AmazonDynamoDBConfig { ServiceURL = "http://127.0.0.1:8000" };
             var dynamoDbClient = new AmazonDynamoDBClient(config);
             var dynamoDbContext = new DynamoDBContext(dynamoDbClient);
             var writeOperation = new WriteTestResultOperation(dynamoDbContext);
