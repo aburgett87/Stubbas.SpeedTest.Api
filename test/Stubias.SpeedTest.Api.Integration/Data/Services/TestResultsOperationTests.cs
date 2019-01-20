@@ -7,6 +7,7 @@ using Amazon.Util;
 using Stubias.SpeedTest.Api.Data.Models;
 using Stubias.SpeedTest.Api.Data.Services;
 using Xunit;
+using DynamoDBContextConfig = Amazon.DynamoDBv2.DataModel.DynamoDBContextConfig;
 
 namespace Stubias.SpeedTest.Api.Integration.Data.Services
 {
@@ -29,7 +30,8 @@ namespace Stubias.SpeedTest.Api.Integration.Data.Services
 
             var config = new AmazonDynamoDBConfig { ServiceURL = "http://127.0.0.1:8000" };
             var dynamoDbClient = new AmazonDynamoDBClient(config);
-            var dynamoDbContext = new DynamoDBContext(dynamoDbClient);
+            var contextConfig = new DynamoDBContextConfig { TableNamePrefix = "Development" };
+            var dynamoDbContext = new DynamoDBContext(dynamoDbClient, contextConfig);
             var writeOperation = new WriteTestResultOperation(dynamoDbContext);
             var queryOperation = new QueryTestResultsOperation(dynamoDbContext);
 

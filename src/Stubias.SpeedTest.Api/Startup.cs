@@ -48,6 +48,9 @@ namespace Stubias.SpeedTest.Api
 
             services.AddDefaultAWSOptions(awsOptions)
                 .AddAWSService<IAmazonDynamoDB>(awsOptions)
+                .AddScoped<DynamoDBContextConfig>(
+                    _ => new DynamoDBContextConfig { TableNamePrefix = Environment.EnvironmentName }
+                )
                 .AddScoped<IDynamoDBContext, DynamoDBContext>()
                 .AddScoped<IQueryTestResultsOperation, QueryTestResultsOperation>()
                 .AddScoped<IWriteTestResultOperation, WriteTestResultOperation>()

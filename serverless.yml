@@ -42,7 +42,7 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 2
           WriteCapacityUnits: 2
-        TableName: ApplicationTable
+        TableName: ${opt:stage, 'Staging'}SpeedResultsTable
 package:
   artifact: src/Stubias.SpeedTest.Api/bin/local/release/netcoreapp2.1/deploy-package.zip
 
@@ -54,5 +54,5 @@ functions:
          path: /{proxy+}
          method: ANY
     environment:
-      Swagger__DefinitionPath: /${opt:stage, 'staging'}/swagger/v1/swagger.json
-      ASPNETCORE_ENVIRONMENT: Staging
+      Swagger__DefinitionPath: /${opt:stage, 'Staging'}/swagger/v1/swagger.json
+      ASPNETCORE_ENVIRONMENT: ${opt:stage, 'Staging'}

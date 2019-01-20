@@ -24,7 +24,10 @@ namespace Stubias.SpeedTest.Api.Integration
                 awsOptions.DefaultClientConfig.ServiceURL = dynamoDbUrl;
                 services.AddDefaultAWSOptions(awsOptions)
                     .AddAWSService<IAmazonDynamoDB>(awsOptions)
-                    .AddScoped<IDynamoDBContext, DynamoDBContext>();
+                    .AddScoped<IDynamoDBContext, DynamoDBContext>()
+                    .AddScoped<DynamoDBContextConfig>(
+                        _ => new DynamoDBContextConfig { TableNamePrefix = "Development" }
+                    );
 
                 using (var scope = services.BuildServiceProvider().CreateScope())
                 {

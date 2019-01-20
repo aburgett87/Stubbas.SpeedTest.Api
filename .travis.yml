@@ -18,12 +18,12 @@ script:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: sls deploy -v --conceal
+    script: sls deploy -v --conceal -s Staging
     on:
       branch: develop
   - provider: script
     skip_cleanup: true
-    script: sls deploy -v -s production --conceal
+    script: sls deploy -v -s Production --conceal
     on:
       branch: master
 

@@ -9,7 +9,7 @@
             "AttributeType": "S"
         }
     ],
-    "TableName": "ApplicationTable",
+    "TableName": "DevelopmentSpeedResultsTable",
     "KeySchema": [
         {
             "AttributeName": "Id",
