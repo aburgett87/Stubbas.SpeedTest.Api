@@ -6,4 +6,4 @@ dotnet lambda package \
     --configuration release \
     --framework netcoreapp2.1 \
     --output-package bin/local/release/netcoreapp2.1/deploy-package.zip \
-    --project-location ./src/Stubias.SpeedTest.Api/Stubias.SpeedTest.Api.csproj
+    --project-location ./src/Stubias.SpeedTest.Api/
