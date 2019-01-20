@@ -15,7 +15,18 @@ script:
   - docker run -d -p 127.0.0.1:8000:8000 amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -inMemory
   - ./build_dynamo.sh
   - ./build.sh
-  - sls deploy -v
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: sls deploy -v --conceal
+    on:
+      branch: develop
+  - provider: script
+    skip_cleanup: true
+    script: sls deploy -v -s production --conceal
+    on:
+      branch: master
+
 cache:
   directories:
     - '$HOME/.nuget/packages'
