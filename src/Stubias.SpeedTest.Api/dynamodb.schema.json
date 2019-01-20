@@ -1,0 +1,27 @@
+{
+    "AttributeDefinitions": [
+        {
+            "AttributeName": "Id",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "SortKey",
+            "AttributeType": "S"
+        }
+    ],
+    "TableName": "ApplicationTable",
+    "KeySchema": [
+        {
+            "AttributeName": "Id",
+            "KeyType": "HASH"
+        },
+        {
+            "AttributeName": "SortKey",
+            "KeyType": "RANGE"
+        }
+    ],
+    "ProvisionedThroughput": {
+        "ReadCapacityUnits": 2,
+        "WriteCapacityUnits": 2
+    }
+}

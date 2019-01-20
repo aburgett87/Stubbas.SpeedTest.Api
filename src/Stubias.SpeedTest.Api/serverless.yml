@@ -1,0 +1,17 @@
+service: Stubias.SpeedTest.Api
+
+provider:
+  name: aws
+  runtime: dotnetcore2.1
+  region: ap-southeast-2
+
+package:
+  artifact: bin/release/netcoreapp2.1/deploy-package.zip
+
+functions:
+  api:
+    handler: Stubias.SpeedTest.Api::Stubias.SpeedTest.Api.LambdaEntryPoint::FunctionHandlerAsync
+    events:
+     - http:
+         path: /{proxy+}
+         method: ANY
