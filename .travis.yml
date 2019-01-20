@@ -1,0 +1,9 @@
+language: csharp
+services:
+  - docker
+mono: none
+dotnet: 2.2.103
+script:
+  - docker run -d -p 127.0.0.1:8000:8000 amazon/dynamodb-local
+  - ./build_dynamo.sh
+  - ./build.sh
