@@ -5,5 +5,5 @@ dotnet lambda package \
     --disable-version-check true \
     --configuration release \
     --framework netcoreapp2.1 \
-    --output-package src/bin/local/release/netcoreapp2.1/deploy-package.zip \
+    --output-package src/Stubias.SpeedTest.Api/bin/local/release/netcoreapp2.1/deploy-package.zip \
     --project-location ./src/Stubias.SpeedTest.Api/
