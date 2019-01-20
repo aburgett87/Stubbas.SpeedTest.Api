@@ -71,7 +71,7 @@ namespace Stubias.SpeedTest.Api
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Speed Test API");
+                c.SwaggerEndpoint(Configuration["Swagger:DefinitionPath"], "Speed Test API");
             });
         }
     }
