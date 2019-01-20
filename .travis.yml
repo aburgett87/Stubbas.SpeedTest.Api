@@ -11,7 +11,7 @@ install:
 before_script:
   - export PATH="$PATH:$HOME/.dotnet/tools"
 script:
-  - docker run -d -p 127.0.0.1:8000:8000 amazon/dynamodb-local
+  - docker run -d -p 127.0.0.1:8000:8000 amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -inMemory
   - ./build_dynamo.sh
   - ./build.sh
 cache:
