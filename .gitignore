@@ -168,3 +168,5 @@ App_Data/*.ldf
 
 # Microsoft Fakes
 FakesAssemblies/
+
+.serverless/
