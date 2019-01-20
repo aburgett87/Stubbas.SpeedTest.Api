@@ -6,6 +6,7 @@ using Amazon.Extensions.NETCore.Setup;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Stubias.SpeedTest.Api.Data.Models;
 
 namespace Stubias.SpeedTest.Api.Integration
@@ -27,8 +28,10 @@ namespace Stubias.SpeedTest.Api.Integration
 
                 using (var scope = services.BuildServiceProvider().CreateScope())
                 {
+                    var logger = scope.ServiceProvider.GetRequiredService<ILogger<SpeedTestWebApplicationFactory<TStartup>>>();
                     var dynamoDb = scope.ServiceProvider.GetRequiredService<IAmazonDynamoDB>();
                     var dynamoDbContext = scope.ServiceProvider.GetRequiredService<IDynamoDBContext>();
+                    logger.LogInformation($"Seeding data for dynamodb instance at {dynamoDb.Config.ServiceURL}");
                     var input = new SpeedTestResultDataModel
                     {
                         Location = "test-home",
