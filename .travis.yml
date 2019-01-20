@@ -5,8 +5,7 @@ mono: none
 dist: xenial
 dotnet: 2.2
 script:
-  - apt -qq update
-  - apt -qq -y install zip
+  - sudo apt -qq -y install zip
   - dotnet tool install --global Amazon.Lambda.Tools --version 3.0.1
   - pip install --user awscli
   - docker run -d -p 127.0.0.1:8000:8000 amazon/dynamodb-local
