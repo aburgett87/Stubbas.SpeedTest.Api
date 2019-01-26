@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using AutoMapper;
@@ -10,7 +7,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Stubias.SpeedTest.Api.Actions;
 using Stubias.SpeedTest.Api.Data.Services;
 using Stubias.SpeedTest.Api.Models;
@@ -39,15 +35,8 @@ namespace Stubias.SpeedTest.Api
                 c.SwaggerDoc("v1", new Info { Title = "Speed Test API", Version = "v1" });
             });
 
-            var awsOptions = Configuration.GetAWSOptions();
-
-            if(Environment.IsDevelopment())
-            {
-                awsOptions.DefaultClientConfig.ServiceURL = Configuration["AWS:DynamoDbEndpoint"];
-            }
-
-            services.AddDefaultAWSOptions(awsOptions)
-                .AddAWSService<IAmazonDynamoDB>(awsOptions)
+            services.AddDefaultAWSOptions(Configuration.GetAWSOptions())
+                .AddAWSService<IAmazonDynamoDB>()
                 .AddScoped<DynamoDBContextConfig>(
                     _ => new DynamoDBContextConfig { TableNamePrefix = Environment.EnvironmentName }
                 )
