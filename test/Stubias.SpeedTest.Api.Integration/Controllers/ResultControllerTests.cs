@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using IdentityModel.Client;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using Stubias.SpeedTest.Api.Models;
 using Xunit;
+using Microsoft.Extensions.Options;
+using Stubias.SpeedTest.Api.Models.Configuration;
+using Microsoft.Extensions.Configuration;
+using Stubias.SpeedTest.Api.Integration.Helpers;
 
 namespace Stubias.SpeedTest.Api.Integration.Controllers
 {
@@ -39,6 +45,14 @@ namespace Stubias.SpeedTest.Api.Integration.Controllers
                 NodeName = "node"
             };
             var client = _factory.CreateClient();
+            using (var scope = _factory.Server.Host.Services.CreateScope())
+            {
+                var authOptions = _factory.Server.Host.Services.GetRequiredService<IOptions<Auth>>();
+                var configuration = _factory.Server.Host.Services.GetRequiredService<IConfiguration>();
+                var accessTokenFactory = new AccessTokenFactory(authOptions, configuration);
+
+                client.SetBearerToken(await accessTokenFactory.GetAuthTokenAsync());
+            }
 
             //Act
             var postResponse = await client.PostAsJsonAsync(url, input);
@@ -55,6 +69,15 @@ namespace Stubias.SpeedTest.Api.Integration.Controllers
             var location = "test-home";
 
             var client = _factory.CreateClient();
+            using (var scope = _factory.Server.Host.Services.CreateScope())
+            {
+                var authOptions = _factory.Server.Host.Services.GetRequiredService<IOptions<Auth>>();
+                var configuration = _factory.Server.Host.Services.GetRequiredService<IConfiguration>();
+                var accessTokenFactory = new AccessTokenFactory(authOptions, configuration);
+
+                client.SetBearerToken(await accessTokenFactory.GetAuthTokenAsync());
+            }
+
             var query = new Dictionary<string, string>
             {
                 {"startDateTime", executionTime.ToString() },

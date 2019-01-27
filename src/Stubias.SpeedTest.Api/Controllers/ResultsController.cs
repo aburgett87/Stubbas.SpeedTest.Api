@@ -6,11 +6,13 @@ using Stubias.SpeedTest.Api.Data.Models;
 using Stubias.SpeedTest.Api.Models.Input;
 using Stubias.SpeedTest.Api.Constants;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Stubias.SpeedTest.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class ResultsController : ControllerBase
     {
         private readonly IGetAction<SpeedTestResultInputModel, IEnumerable<SpeedTestResult>> _getAction;

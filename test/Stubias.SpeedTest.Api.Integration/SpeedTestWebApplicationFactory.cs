@@ -1,13 +1,16 @@
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.Extensions.NETCore.Setup;
+using IdentityModel.Client;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Stubias.SpeedTest.Api.Data.Models;
+using Stubias.SpeedTest.Api.Integration.Helpers;
 
 namespace Stubias.SpeedTest.Api.Integration
 {
@@ -16,8 +19,7 @@ namespace Stubias.SpeedTest.Api.Integration
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            var dynamoDbUrl = "http://127.0.0.1:8000";
-            Environment.SetEnvironmentVariable("AWS__ServiceURL", dynamoDbUrl);
+            var dynamoDbUrl = TestAndSetEnvironmentVariable("AWS__ServiceURL", "http://127.0.0.1:8000");
             builder.ConfigureServices(services =>
             {
                 var awsOptions = new AWSOptions();
@@ -47,9 +49,21 @@ namespace Stubias.SpeedTest.Api.Integration
                         TestServerName = "test-sever",
                         NodeName = "node"
                     };
-                    Task.Run(() => dynamoDbContext.SaveAsync(input)).Wait();
+                    dynamoDbContext.SaveAsync(input).GetAwaiter().GetResult();
                 }
+
             });
+        }
+
+        private string TestAndSetEnvironmentVariable(string environmentVariable, string valueIfNull)
+        {
+            var value = Environment.GetEnvironmentVariable(environmentVariable);
+            if(value == null)
+            {
+                Environment.SetEnvironmentVariable(environmentVariable, valueIfNull);
+                value = valueIfNull;
+            }
+            return value;
         }
     }
 }
