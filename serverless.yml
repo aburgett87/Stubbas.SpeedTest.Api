@@ -18,6 +18,8 @@ provider:
       - dynamodb:DeleteItem
       - dynamodb:BatchGetItem
       - dynamodb:BatchWriteItem
+      - secretsmanager:ListSecrets
+      - secretsmanager:GetSecretValue
       Resource: "*"
 resources:
   Resources:
