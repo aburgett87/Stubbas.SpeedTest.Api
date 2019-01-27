@@ -20,6 +20,7 @@ provider:
       - dynamodb:BatchWriteItem
       - secretsmanager:ListSecrets
       - secretsmanager:GetSecretValue
+      - ssm:GetParametersByPath
       Resource: "*"
 resources:
   Resources:
