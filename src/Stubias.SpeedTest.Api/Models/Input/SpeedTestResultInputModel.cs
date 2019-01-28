@@ -5,7 +5,7 @@ namespace Stubias.SpeedTest.Api.Models.Input
 {
     public class SpeedTestResultInputModel
     {
-        [FromRoute]
+        [FromRoute(Name = "location")]
         public string Location { get; set; }
         [FromQuery]
         public DateTime StartDateTime { get; set; }

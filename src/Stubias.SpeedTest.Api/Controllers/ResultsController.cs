@@ -27,8 +27,8 @@ namespace Stubias.SpeedTest.Api.Controllers
 
         [HttpGet("{location}", Name = RouteNames.GetResultAction)]
         public async Task<ActionResult<IEnumerable<SpeedTestResult>>> GetResultByLocationAsync(
-            [FromQuery] SpeedTestResultInputModel location)
-            => await _getAction.GetAsync(location);
+            [FromQuery] SpeedTestResultInputModel input)
+            => await _getAction.GetAsync(input);
 
         [HttpPost]
         public async Task<ActionResult<SpeedTestResult>> PostResultAsync([FromBody] SpeedTestResult input)
