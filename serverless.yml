@@ -57,5 +57,4 @@ functions:
          path: /{proxy+}
          method: ANY
     environment:
-      Swagger__DefinitionPath: /${opt:stage, 'Staging'}/swagger/v1/swagger.json
       ASPNETCORE_ENVIRONMENT: ${opt:stage, 'Staging'}
