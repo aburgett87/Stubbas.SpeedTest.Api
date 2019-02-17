@@ -16,8 +16,8 @@ namespace Stubias.SpeedTest.Api
             builder
                 .ConfigureAppConfiguration((hostingContext, config) => 
                 {
-                    config.AddSecretsManager();
                     config.AddSystemsManager($"/speedtest/{hostingContext.HostingEnvironment.EnvironmentName}/");
+                    config.AddSecretsManager();
                 })
                 .UseStartup<Startup>();
         }
