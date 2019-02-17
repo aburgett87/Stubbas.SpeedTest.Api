@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -45,6 +47,14 @@ namespace Stubias.SpeedTest.Api
                 {
                     options.Authority = authConfig.Authority;
                     options.Audience = authConfig.Audience;
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnAuthenticationFailed = context =>
+                        {
+                            Logger.LogError(context.Exception, "Authentication Failed");
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
 
             services.AddSwaggerGen(c =>
