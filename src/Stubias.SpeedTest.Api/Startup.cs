@@ -47,14 +47,6 @@ namespace Stubias.SpeedTest.Api
                 {
                     options.Authority = authConfig.Authority;
                     options.Audience = authConfig.Audience;
-                    options.Events = new JwtBearerEvents
-                    {
-                        OnAuthenticationFailed = context =>
-                        {
-                            Logger.LogError(context.Exception, "Authentication Failed");
-                            return Task.CompletedTask;
-                        }
-                    };
                 });
 
             services.AddSwaggerGen(c =>
